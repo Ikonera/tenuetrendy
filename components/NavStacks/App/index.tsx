@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { type FunctionComponent } from "react"
 import Fa5 from "react-native-vector-icons/FontAwesome5"
 import Ant from "react-native-vector-icons/AntDesign"
-import { HomeScreen, FavScreen } from "../../../Screens"
+import { HomeScreen, FavScreen, FormLogin } from "../../../Screens"
 
 const Tabs = createBottomTabNavigator()
 
