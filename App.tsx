@@ -5,114 +5,105 @@
  * @format
  */
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import React from "react"
+import { StyleSheet, useColorScheme, View } from "react-native"
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import { Colors } from "react-native/Libraries/NewAppScreen"
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+import { fireDB, auth } from "./firebase.js"
+import clothes from "./vetements.json"
+import user from "./user.json"
 
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+import { NativeBaseProvider, Text, Button } from "native-base"
 
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+	const isDarkMode = useColorScheme() === "dark"
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+	const backgroundStyle = {
+		backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+	}
 
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+	const createCollection = () => {
+		clothes.forEach(async (article) => {
+			await fireDB.collection("articles").add(article)
+		})
+
+		user.forEach(async (user) => {
+			await fireDB.collection("users").add(user)
+		})
+	}
+
+	const createCollectionUser = () => {
+		user.forEach(async (user) => {
+			await fireDB.collection("users").add(user)
+		})
+	}
+
+	const createCollectionAvis = async () => {
+		const IdsArticles = await getIdsCollection("articles")
+		const IdsUsers = await getIdsCollection("users")
+
+		IdsArticles.forEach((article) => {
+			IdsUsers.forEach((user) => {
+				let RandomNumber = Math.floor(Math.random() * 5) + 1
+				let phrase = "Super article !"
+				let id_article = article.id
+				let id_user = user.id
+				fireDB.collection("avis").add({
+					IDUser: id_user,
+					IDArticle: id_article,
+					avis: phrase,
+					note: RandomNumber,
+				})
+			})
+		})
+	}
+
+	const createCollectionFavori = async () => {
+		const IdsArticles = await getIdsCollection("articles")
+		const IdsUsers = await getIdsCollection("users")
+
+		IdsUsers.forEach((user) => {
+			let RandomNumber = Math.floor(Math.random() * 15) + 1
+			let RandomNumber2 = Math.floor(Math.random() * 15) + 1
+
+			let article1 = IdsArticles[RandomNumber]
+			let article2 = IdsArticles[RandomNumber2]
+
+			fireDB.collection("favori").add({
+				IDUser: user.id,
+				IDArticles: [article1, article2],
+			})
+		})
+	}
+
+	const getIdsCollection = async (collectionName: string) => {
+		const test = await fireDB
+			.collection(collectionName)
+			.get()
+			.then((data) => {
+				const temp = data.docs.map((doc) => {
+					return { id: doc.id }
+				})
+				return temp
+			})
+		return test
+	}
+
+	return (
+		<NativeBaseProvider>
+			<View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+				<Button onPress={() => createCollection()}>create_articles</Button>
+				<Button onPress={() => createCollectionUser()}>create_users</Button>
+				<Button onPress={() => createCollectionAvis()}>generate_avis</Button>
+				<Button onPress={() => createCollectionFavori()}>
+					generate_favoris
+				</Button>
+			</View>
+		</NativeBaseProvider>
+	)
 }
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+const styles = StyleSheet.create({})
 
-export default App;
+export default App

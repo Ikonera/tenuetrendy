@@ -1,0 +1,32 @@
+[
+    {
+        "nom": "Dupont",
+        "prenom": "Marie",
+        "email": "marie.dupont@email.com",
+        "mot_de_passe": "mot_de_passe_securise_1"
+    },
+    {
+        "nom": "Martin",
+        "prenom": "Luc",
+        "email": "luc.martin@email.com",
+        "mot_de_passe": "mot_de_passe_securise_2"
+    },
+    {
+        "nom": "Petit",
+        "prenom": "Jacques",
+        "email": "jacques.petit@email.com",
+        "mot_de_passe": "mot_de_passe_securise_3"
+    },
+    {
+        "nom": "Durand",
+        "prenom": "Claire",
+        "email": "claire.durand@email.com",
+        "mot_de_passe": "mot_de_passe_securise_4"
+    },
+    {
+        "nom": "Bourgeois",
+        "prenom": "Mathilde",
+        "email": "mathilde.bourgeois@email.com",
+        "mot_de_passe": "mot_de_passe_securise_5"
+    }
+]
