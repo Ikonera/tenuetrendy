@@ -1,0 +1,212 @@
+[
+    {
+        "label": "article1",
+        "type": "jeans",
+        "taille": "M",
+        "prix": 250,
+        "marque": "Levi's",
+        "couleur": "bleu",
+        "image": "https://unsplash.com/fr/photos/zDyJOj8ZXG0",
+        "note_globale": 0
+    },
+    {
+        "label": "article2",
+        "type": "jeans",
+        "taille": "L",
+        "prix": 350,
+        "marque": "H&M",
+        "couleur": "noir",
+        "image": "https://unsplash.com/fr/photos/BciCcl8tjVU",
+        "note_globale": 0
+    },
+    {
+        "label": "article3",
+        "type": "jeans",
+        "taille": "S",
+        "prix": 150,
+        "marque": "Zara",
+        "couleur": "gris",
+        "image": "https://unsplash.com/fr/photos/T9hOWy6s6Ug",
+        "note_globale": 0
+    },
+    {
+        "label": "article4",
+        "type": "jeans",
+        "taille": "XL",
+        "prix": 400,
+        "marque": "Calvin Klein",
+        "couleur": "blanc",
+        "image": "https://unsplash.com/fr/photos/Zy6oNZRdcjc",
+        "note_globale": 0
+    },
+    {
+        "label": "article5",
+        "type": "jeans",
+        "taille": "M",
+        "prix": 300,
+        "marque": "Nike",
+        "couleur": "rouge",
+        "image": "https://unsplash.com/fr/photos/C0u5SytVud8",
+        "note_globale": 0
+    },
+    {
+        "label": "article6",
+        "type": "jeans",
+        "taille": "L",
+        "prix": 200,
+        "marque": "Adidas",
+        "couleur": "vert",
+        "image": "https://unsplash.com/fr/photos/EtOMMg1nSR8",
+        "note_globale": 0
+    },
+    {
+        "label": "article7",
+        "type": "jeans",
+        "taille": "S",
+        "prix": 400,
+        "marque": "Puma",
+        "couleur": "jaune",
+        "image": "https://unsplash.com/fr/photos/6ySxQzxMoeo",
+        "note_globale": 0
+    },
+    {
+        "label": "article8",
+        "type": "robe",
+        "taille": "M",
+        "prix": 250,
+        "marque": "Gucci",
+        "couleur": "rouge",
+        "image": "https://unsplash.com/fr/photos/4A8N12Dl0Us",
+        "note_globale": 0
+    },
+    {
+        "label": "article9",
+        "type": "robe",
+        "taille": "L",
+        "prix": 350,
+        "marque": "Prada",
+        "couleur": "noir",
+        "image": "https://unsplash.com/fr/photos/tyfqOL1FAQc",
+        "note_globale": 0
+    },
+    {
+        "label": "article10",
+        "type": "robe",
+        "taille": "S",
+        "prix": 150,
+        "marque": "Zara",
+        "couleur": "gris",
+        "image": "https://unsplash.com/fr/photos/ohiyigDmlYc",
+        "note_globale": 0
+    },
+    {
+        "label": "article11",
+        "type": "robe",
+        "taille": "XL",
+        "prix": 400,
+        "marque": "Calvin Klein",
+        "couleur": "blanc",
+        "image": "https://unsplash.com/fr/photos/vqKnuG8GaQc",
+        "note_globale": 0
+    },
+    {
+        "label": "article12",
+        "type": "robe",
+        "taille": "M",
+        "prix": 300,
+        "marque": "Nike",
+        "couleur": "rouge",
+        "image": "https://unsplash.com/fr/photos/sg_gRhbYXhc",
+        "note_globale": 0
+    },
+    {
+        "label": "article13",
+        "type": "robe",
+        "taille": "L",
+        "prix": 200,
+        "marque": "Adidas",
+        "couleur": "vert",
+        "image": "https://unsplash.com/fr/photos/mNZ-GvOQUUY",
+        "note_globale": 0
+    },
+    {
+        "label": "article14",
+        "type": "robe",
+        "taille": "S",
+        "prix": 400,
+        "marque": "Puma",
+        "couleur": "jaune",
+        "image": "https://unsplash.com/fr/photos/_vmoFgZc8c0",
+        "note_globale": 0
+    },
+    {
+        "label": "article15_1",
+        "type": "pull",
+        "taille": "S",
+        "prix": 50,
+        "marque": "Zara",
+        "couleur": "rouge",
+        "image": "https://unsplash.com/fr/photos/5PYFuwJtfok",
+        "note_globale": 0
+    },
+    {
+        "label": "article15_2",
+        "type": "pull",
+        "taille": "M",
+        "prix": 200,
+        "marque": "H&M",
+        "couleur": "bleu",
+        "image": "https://unsplash.com/fr/photos/mU88MlEFcoU",
+        "note_globale": 0
+    },
+    {
+        "label": "article15_3",
+        "type": "pull",
+        "taille": "L",
+        "prix": 350,
+        "marque": "Gap",
+        "couleur": "vert",
+        "image": "https://unsplash.com/fr/photos/jvLmlVvRfE8",
+        "note_globale": 0
+    },
+    {
+        "label": "article15_4",
+        "type": "pull",
+        "taille": "XL",
+        "prix": 450,
+        "marque": "Nike",
+        "couleur": "jaune",
+        "image": "https://unsplash.com/fr/photos/mcdao5RP4hI",
+        "note_globale": 0
+    },
+    {
+        "label": "article15_5",
+        "type": "pull",
+        "taille": "S",
+        "prix": 500,
+        "marque": "Adidas",
+        "couleur": "noir",
+        "image": "https://unsplash.com/fr/photos/5KAjSBSdaK4",
+        "note_globale": 0
+    },
+    {
+        "label": "article15_6",
+        "type": "pull",
+        "taille": "M",
+        "prix": 150,
+        "marque": "Puma",
+        "couleur": "gris",
+        "image": "https://unsplash.com/fr/photos/mAxyjlOwdFk",
+        "note_globale": 0
+    },
+    {
+        "label": "article15_7",
+        "type": "pull",
+        "taille": "L",
+        "prix": 300,
+        "marque": "Levi's",
+        "couleur": "blanc",
+        "image": "https://unsplash.com/fr/photos/GeWnWHgGXls",
+        "note_globale": 0
+    }
+]
