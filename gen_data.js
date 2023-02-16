@@ -1,9 +1,11 @@
-import React, { useState } from "react"
+import React from "react"
+import { View } from "react-native"
 
-import FormLogin from "./form_login"
+import { fireDB, auth } from "./firebase"
+import clothes from "./vetements.json"
+import user from "./user.json"
 
 import { NativeBaseProvider, Text, Button } from "native-base"
-import { RouterOutlet } from "./components/RouterOutlet"
 
 function App(): JSX.Element {
 	const createCollection = () => {
@@ -76,7 +78,14 @@ function App(): JSX.Element {
 
 	return (
 		<NativeBaseProvider>
-			<RouterOutlet />
+			<View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+				<Button onPress={() => createCollection()}>create_articles</Button>
+				<Button onPress={() => createCollectionUser()}>create_users</Button>
+				<Button onPress={() => createCollectionAvis()}>generate_avis</Button>
+				<Button onPress={() => createCollectionFavori()}>
+					generate_favoris
+				</Button>
+			</View>
 		</NativeBaseProvider>
 	)
 }
