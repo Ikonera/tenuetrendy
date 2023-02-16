@@ -11,9 +11,12 @@
 		"prettier": "prettier --write ."
 	},
 	"dependencies": {
+		"@react-native-firebase/app": "^17.3.0",
+		"@react-native-firebase/auth": "^17.3.0",
 		"firebase": "^9.17.1",
 		"native-base": "^3.4.25",
 		"react": "18.2.0",
+		"react-hook-form": "^7.43.1",
 		"react-native": "0.71.2",
 		"react-native-safe-area-context": "^3.3.2",
 		"react-native-svg": "^12.1.1"
