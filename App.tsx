@@ -1,31 +1,17 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from "react"
-import { StyleSheet, useColorScheme, View } from "react-native"
+import { View } from "react-native"
 
-import { Colors } from "react-native/Libraries/NewAppScreen"
-
-import { fireDB, auth } from "./firebase.js"
+import { fireDB, auth } from "./firebase"
 import clothes from "./vetements.json"
 import user from "./user.json"
 
 import { NativeBaseProvider, Text, Button } from "native-base"
 
 function App(): JSX.Element {
-	const isDarkMode = useColorScheme() === "dark"
-
-	const backgroundStyle = {
-		backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-	}
-
 	const createCollection = () => {
 		clothes.forEach(async (article) => {
-			await fireDB.collection("articles").add(article)
+			const response = await fireDB.collection("articles").add(article)
+			console.log(response)
 		})
 
 		user.forEach(async (user) => {
@@ -103,7 +89,5 @@ function App(): JSX.Element {
 		</NativeBaseProvider>
 	)
 }
-
-const styles = StyleSheet.create({})
 
 export default App
