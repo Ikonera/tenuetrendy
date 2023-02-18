@@ -3,7 +3,6 @@ import { View } from "react-native"
 import { Button } from "native-base"
 import { Container, Text } from "native-base"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-
 import { getAllTypeArticles } from "../../functions/getAllTypeArticles"
 import { getAllMarqueArticles } from "../../functions/getAllMarqueArticles"
 import { getArticlesByMarqueAndTypes } from "../../functions/getArticlesByMarqueAndTypes"
@@ -13,7 +12,6 @@ import { useAppDispatch, useAppSelector } from "../../Store/Store"
 
         
 const HomeScreen: FunctionComponent = () => {
-	const user = useAppSelector(state=>state.auth.user)
 	const dispatch = useAppDispatch()
 
 	return (
@@ -21,7 +19,6 @@ const HomeScreen: FunctionComponent = () => {
 			<Container>
 				<Text>Home screen</Text>
 				<Button onPress={() => dispatch(signout({ user: null }))}>Sign out</Button>
-
 				<Button onPress={() => getAllTypeArticles()}>getAllTypeArticles</Button>
 				<Button onPress={() => getAllMarqueArticles()}>
 					getAllTypeArticles
@@ -41,7 +38,7 @@ const HomeScreen: FunctionComponent = () => {
 
 				<Button onPress={() => getArticlesByMarqueAndTypes("", "")}>
 					getArticlesByMarqueAndTypes marque vide, type vide
-
+				</Button>
 				<Button
 					onPress={() => {
 						getNewPrice(100, "azerty")
