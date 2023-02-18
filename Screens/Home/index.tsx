@@ -3,10 +3,12 @@ import { View } from "react-native"
 import { Button } from "native-base"
 import { Container, Text } from "native-base"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+
 import { getAllTypeArticles } from "../../functions/getAllTypeArticles"
 import { getAllMarqueArticles } from "../../functions/getAllMarqueArticles"
 import { getArticlesByMarqueAndTypes } from "../../functions/getArticlesByMarqueAndTypes"
-
+import { getNewPrice } from "../../functions/codePromo"
+        
 const HomeScreen: FunctionComponent = () => {
 	const [userUid, setUserUid] = useState<string>()
 	const retrieveUserUid = async () => {
@@ -29,6 +31,7 @@ const HomeScreen: FunctionComponent = () => {
 				<Text>Home screen</Text>
 				{userUid}
 				<Button onPress={() => deleteUid()}>Sign out</Button>
+
 				<Button onPress={() => getAllTypeArticles()}>getAllTypeArticles</Button>
 				<Button onPress={() => getAllMarqueArticles()}>
 					getAllTypeArticles
@@ -48,6 +51,13 @@ const HomeScreen: FunctionComponent = () => {
 
 				<Button onPress={() => getArticlesByMarqueAndTypes("", "")}>
 					getArticlesByMarqueAndTypes marque vide, type vide
+
+				<Button
+					onPress={() => {
+						getNewPrice(100, "azerty")
+					}}
+				>
+					Test code promo(console log)
 				</Button>
 			</Container>
 		</View>
