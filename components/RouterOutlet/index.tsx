@@ -2,15 +2,15 @@ import { type FunctionComponent } from "react"
 import { NavigationContainer } from "@react-navigation/native"
 import { AppStack, AuthStack } from "../NavStacks"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { useAppSelector } from "../../Store/Store"
+
 
 const RouterOutlet: FunctionComponent = () => {
-	const userUid = AsyncStorage.getItem("@TenueTrendy:userUid").then(
-		(userUid) => userUid
-	)
+	const user = useAppSelector(state => state.auth.user)
 
 	return (
 		<NavigationContainer>
-			{userUid !== null ? <AppStack /> : <AuthStack />}
+			{user !== null ? <AppStack /> : <AuthStack />}
 		</NavigationContainer>
 	)
 }

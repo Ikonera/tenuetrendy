@@ -3,8 +3,10 @@ import { View } from "react-native"
 import { Text, Button, Input } from "native-base"
 import { useForm, Controller } from "react-hook-form"
 import { fireDB, auth } from "../../firebase"
-import { getAuth } from "firebase/auth"
+import { getAuth, User } from "firebase/auth"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { useAppDispatch } from "../../Store/Store"
+import { authenticate } from "../../Store/reducers/auth"
 
 const FormLogin: FunctionComponent = () => {
 	type SignupInputs = {
@@ -17,22 +19,13 @@ const FormLogin: FunctionComponent = () => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm<SignupInputs>({ mode: "onChange" })
+	const dispatch = useAppDispatch()
 
 	const onSubmit = (data: SignupInputs) => {
-		auth
-			.signInWithEmailAndPassword(data.email, data.password)
-			.then(async (userCredential) => {
-				console.log("User signed in!")
-				console.log(userCredential)
-				await AsyncStorage.setItem(
-					"@TenueTrendy:userUid",
-					userCredential.user?.uid as string
-				)
-				console.log("stock id")
-			})
-			.catch((error) => {
-				console.log("Error", error.message)
-			})
+		auth.signInWithEmailAndPassword(data.email, data.password).then(userCredential => {
+			console.log("user signed in : ", userCredential)
+			dispatch(authenticate({ user: userCredential.user as User }))
+		})
 	}
 
 	return (
