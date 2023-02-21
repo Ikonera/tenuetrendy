@@ -1,51 +1,62 @@
 import { useEffect, useState, type FunctionComponent } from "react"
 import { View } from "react-native"
-import { Button } from "native-base"
 import { Container, Text } from "native-base"
-import AsyncStorage from "@react-native-async-storage/async-storage"
-import { getAllTypeArticles } from "../../functions/getAllTypeArticles"
-import { getAllMarqueArticles } from "../../functions/getAllMarqueArticles"
-import { getArticlesByMarqueAndTypes } from "../../functions/getArticlesByMarqueAndTypes"
-import { getNewPrice } from "../../functions/codePromo"
-import { signout } from "../../Store/reducers/auth"
 import { useAppDispatch, useAppSelector } from "../../Store/Store"
+import { IClothes, setAllArticles } from "../../Store/reducers/clothes"
+import { fireDB } from "../../firebase"
+import { Article } from "../../components/Article"
+
+export class Clothes {
+	couleur: string
+    image: string
+    label: string
+    marque: string
+    note_globale: number
+    prix: number
+    taille: string
+    type: string
+
+	constructor(couleur: string, image: string, label: string, marque: string, note_globale: number, prix: number, taille: string, type: string) {
+		this.couleur = couleur
+		this.image = image
+		this.label = label
+		this.marque = marque
+		this.note_globale = note_globale
+		this.prix = prix
+		this.taille = taille
+		this.type = type
+	}
+}
 
 const HomeScreen: FunctionComponent = () => {
 	const dispatch = useAppDispatch()
+	const articles = useAppSelector(state=>state.articles.articles)
+
+	const fetchAllArticles = async () => {
+		const articlesResults = await fireDB.collection("articles").get() 
+		let tempArticles: IClothes[] = []
+		articlesResults.forEach(doc => {
+			const { couleur, image, label, marque, note_globale, prix, taille, type } = doc.data()
+			tempArticles.push(new Clothes(couleur, image, label, marque, note_globale, prix, taille, type))
+		})
+		dispatch(setAllArticles({ articles: tempArticles }))
+	}
+
+	useEffect(() => {
+		fetchAllArticles()
+	}, [])
 
 	return (
 		<View>
 			<Container>
 				<Text>Home screen</Text>
-				<Button onPress={() => dispatch(signout({ user: null }))}>Sign out</Button>
-
-				<Button onPress={() => getAllTypeArticles()}>getAllTypeArticles</Button>
-				<Button onPress={() => getAllMarqueArticles()}>
-					getAllTypeArticles
-				</Button>
-
-				<Button onPress={() => getArticlesByMarqueAndTypes("H&M", "jeans")}>
-					getArticlesByMarqueAndTypes marque H&M, type jeans
-				</Button>
-
-				<Button onPress={() => getArticlesByMarqueAndTypes("", "jeans")}>
-					getArticlesByMarqueAndTypes marque vide, type jeans
-				</Button>
-
-				<Button onPress={() => getArticlesByMarqueAndTypes("H&M", "")}>
-					getArticlesByMarqueAndTypes marque H&M, type vide
-				</Button>
-
-				<Button onPress={() => getArticlesByMarqueAndTypes("", "")}>
-					getArticlesByMarqueAndTypes marque vide, type vide
-				</Button>
-				<Button
-					onPress={() => {
-						getNewPrice(100, "azerty")
-					}}
-				>
-					Test code promo(console log)
-				</Button>
+						<Container>
+							{
+					articles.map((article: IClothes, idx: number) => (
+							<Article article={article} key={idx} />
+						))
+					}
+						</Container>
 			</Container>
 		</View>
 	)
