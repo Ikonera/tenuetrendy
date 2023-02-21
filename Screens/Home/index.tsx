@@ -8,29 +8,19 @@ import { getAllTypeArticles } from "../../functions/getAllTypeArticles"
 import { getAllMarqueArticles } from "../../functions/getAllMarqueArticles"
 import { getArticlesByMarqueAndTypes } from "../../functions/getArticlesByMarqueAndTypes"
 import { getNewPrice } from "../../functions/codePromo"
+import { signout } from "../../Store/reducers/auth"
+import { useAppDispatch, useAppSelector } from "../../Store/Store"
+
         
 const HomeScreen: FunctionComponent = () => {
-	const [userUid, setUserUid] = useState<string>()
-	const retrieveUserUid = async () => {
-		const userUid = await AsyncStorage.getItem("@TenueTrendy:userUid")
-		if (userUid) setUserUid(userUid)
-	}
-
-	const deleteUid = async () => {
-		const response = await AsyncStorage.removeItem("@TenueTrendy:userUid")
-		console.log(response)
-	}
-
-	useEffect(() => {
-		retrieveUserUid()
-	}, [])
+	const user = useAppSelector(state=>state.auth.user)
+	const dispatch = useAppDispatch()
 
 	return (
 		<View>
 			<Container>
 				<Text>Home screen</Text>
-				{userUid}
-				<Button onPress={() => deleteUid()}>Sign out</Button>
+				<Button onPress={() => dispatch(signout({ user: null }))}>Sign out</Button>
 
 				<Button onPress={() => getAllTypeArticles()}>getAllTypeArticles</Button>
 				<Button onPress={() => getAllMarqueArticles()}>

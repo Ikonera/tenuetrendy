@@ -1,12 +1,12 @@
 import React, { useState } from "react"
-
-import FormLogin from "./form_login"
+import { Provider } from "react-redux"
+import { GlobalStore } from "./Store"
 
 import { NativeBaseProvider, Text, Button } from "native-base"
 import { RouterOutlet } from "./components/RouterOutlet"
 
 function App(): JSX.Element {
-	const createCollection = () => {
+	/* const createCollection = () => {
 		clothes.forEach(async (article) => {
 			const response = await fireDB.collection("articles").add(article)
 			console.log(response)
@@ -72,12 +72,14 @@ function App(): JSX.Element {
 				return temp
 			})
 		return test
-	}
+	} */
 
 	return (
-		<NativeBaseProvider>
-			<RouterOutlet />
-		</NativeBaseProvider>
+		<Provider store={GlobalStore}>
+			<NativeBaseProvider>
+				<RouterOutlet />
+			</NativeBaseProvider>
+		</Provider>
 	)
 }
 
