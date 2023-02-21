@@ -10,7 +10,6 @@ import { getNewPrice } from "../../functions/codePromo"
 import { signout } from "../../Store/reducers/auth"
 import { useAppDispatch, useAppSelector } from "../../Store/Store"
 
-        
 const HomeScreen: FunctionComponent = () => {
 	const dispatch = useAppDispatch()
 
@@ -19,6 +18,7 @@ const HomeScreen: FunctionComponent = () => {
 			<Container>
 				<Text>Home screen</Text>
 				<Button onPress={() => dispatch(signout({ user: null }))}>Sign out</Button>
+
 				<Button onPress={() => getAllTypeArticles()}>getAllTypeArticles</Button>
 				<Button onPress={() => getAllMarqueArticles()}>
 					getAllTypeArticles
