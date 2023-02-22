@@ -5,16 +5,11 @@ import { useAppSelector } from "../../Store/Store"
 import { Header } from "../Header"
 
 const RouterOutlet: FunctionComponent = () => {
-	const user = useAppSelector(state => state.auth.user)
+	const user = useAppSelector((state) => state.auth.user)
 
 	return (
 		<NavigationContainer>
-			{user === null ? <AuthStack /> : (
-				<>
-<Header />
-			<AppStack />
-				</>
-		)}
+			{user === null ? <AuthStack /> : <AppStack />}
 		</NavigationContainer>
 	)
 }
