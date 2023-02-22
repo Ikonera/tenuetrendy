@@ -20,8 +20,12 @@ const CartSlice = createSlice({
 			let idxArticleToRemove = state.articles.indexOf(action.payload.article)
 			state.articles.splice(idxArticleToRemove, 1)
 		},
+		removeArticlesFromCart: (state) => {
+			return { ...state, articles: [] }
+		},
 	},
 })
 
 export { CartSlice }
-export const { addToCart, removeFromCart } = CartSlice.actions
+export const { addToCart, removeFromCart, removeArticlesFromCart } =
+	CartSlice.actions
