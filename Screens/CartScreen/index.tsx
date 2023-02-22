@@ -6,6 +6,7 @@ import {
 	Modal,
 	Divider,
 	Button,
+	Input,
 } from "native-base"
 import { useEffect, useState, type FunctionComponent } from "react"
 import { IClothes } from "../../Store/reducers/clothes"
@@ -13,6 +14,7 @@ import { useAppDispatch, useAppSelector } from "../../Store/Store"
 import { ArticleItem } from "../../components/Article"
 import { removeArticlesFromCart } from "../../Store/reducers/cart"
 import Ant from "react-native-vector-icons/AntDesign"
+import { getNewPrice } from "../../functions/codePromo"
 
 const CartScreen: FunctionComponent = () => {
 	const dispatch = useAppDispatch()
@@ -20,6 +22,11 @@ const CartScreen: FunctionComponent = () => {
 	const [totalCartPrice, setTotalCartPrice] = useState<number>(0)
 	const [openModal, setOpenModal] = useState<boolean>(false)
 	const toggleModal = () => setOpenModal(!openModal)
+
+	const handleCodeChange = async (code: string) => {
+		const newPrice = await getNewPrice(totalCartPrice, code)
+		setTotalCartPrice(newPrice)
+	}
 
 	useEffect(() => {
 		let price = articles.map((article) => article.prix)
@@ -45,6 +52,12 @@ const CartScreen: FunctionComponent = () => {
 				<Center>
 					<Divider />
 					<Text>Prix total de la commande : {totalCartPrice}</Text>
+					<Input
+						w="4/6"
+						my="3"
+						placeholder="Code promo"
+						onChangeText={(newText: string) => handleCodeChange(newText)}
+					/>
 					<Button
 						w="4/6"
 						onPress={() => {
