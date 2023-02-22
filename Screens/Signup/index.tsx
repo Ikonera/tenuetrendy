@@ -22,10 +22,12 @@ const FormLogin: FunctionComponent = () => {
 	const dispatch = useAppDispatch()
 
 	const onSubmit = (data: SignupInputs) => {
-		auth.signInWithEmailAndPassword(data.email, data.password).then(userCredential => {
-			console.log("user signed in : ", userCredential)
-			dispatch(authenticate({ user: userCredential.user as User }))
-		})
+		auth
+			.signInWithEmailAndPassword(data.email, data.password)
+			.then((userCredential) => {
+				console.log("user signed in : ", userCredential)
+				dispatch(authenticate({ user: userCredential.user as User }))
+			})
 	}
 
 	return (

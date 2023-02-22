@@ -1,25 +1,32 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IClothes } from "../clothes";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { IClothes } from "../clothes"
 
 interface IFavoritesState {
-    articles: IClothes[]
+	articles: IClothes[]
 }
 
 const initialState: IFavoritesState = {
-    articles: []
+	articles: [],
 }
 
 const FavoritesSlice = createSlice({
-    name: "favorites",
-    initialState,
-    reducers: {
-        markAsFavorite: (state: IFavoritesState, action: PayloadAction<{ article: IClothes }>) => {return {...state, favorites: action.payload.article}},
-        removeFromFavorites: (state: IFavoritesState, action: PayloadAction<{ article: IClothes }>) => {
-            const idxToRemove = state.articles.indexOf(action.payload.article)
-            let updatedFavoritesArray = state.articles.splice(idxToRemove, 1)
-            return {...state, articles: updatedFavoritesArray}
-        }
-    }
+	name: "favorites",
+	initialState,
+	reducers: {
+		markAsFavorite: (
+			state: IFavoritesState,
+			action: PayloadAction<{ article: IClothes }>
+		) => {
+			state.articles.push(action.payload.article)
+		},
+		removeFromFavorites: (
+			state: IFavoritesState,
+			action: PayloadAction<{ article: IClothes }>
+		) => {
+			const idxToRemove = state.articles.indexOf(action.payload.article)
+			state.articles.splice(idxToRemove, 1)
+		},
+	},
 })
 
 export { FavoritesSlice }

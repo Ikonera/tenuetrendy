@@ -1,3 +1,3 @@
-import { AuthSlice } from "./auth";
+import { AuthSlice } from "./auth"
 
 export { AuthSlice }
