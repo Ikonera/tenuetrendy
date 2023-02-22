@@ -46,7 +46,7 @@ export class Clothes {
 	}
 }
 
-const HomeScreen: FunctionComponent = () => {
+const HomeScreen: FunctionComponent<{ navigation: any }> = ({ navigation }) => {
 	const dispatch = useAppDispatch()
 	const articles = useAppSelector((state) => state.articles.articles)
 	const [itemTypes, setItemTypes] = useState<string[]>([])
@@ -95,7 +95,10 @@ const HomeScreen: FunctionComponent = () => {
 		<ScrollView w="full">
 			<Flex direction="row" mb="1" mt="1" justifyContent="space-evenly">
 				<Input placeholder="Search" w="5/6" />
-				<IconButton icon={<Ant name="shoppingcart" />} />
+				<IconButton
+					icon={<Ant name="shoppingcart" />}
+					onPress={() => navigation.navigate("Cart")}
+				/>
 			</Flex>
 			{itemTypes.map((type: string) => (
 				<>

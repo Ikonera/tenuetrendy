@@ -2,11 +2,14 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { type FunctionComponent } from "react"
 import Fa5 from "react-native-vector-icons/FontAwesome5"
 import Ant from "react-native-vector-icons/AntDesign"
-import { HomeScreen, FavScreen, FormLogin } from "../../../Screens"
+import { HomeScreen, FavScreen } from "../../../Screens"
+import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import { CartScreen } from "../../../Screens/CartScreen"
 
 const Tabs = createBottomTabNavigator()
+const Stack = createNativeStackNavigator()
 
-const AppStack: FunctionComponent = () => {
+const HomeFavorites: FunctionComponent = () => {
 	return (
 		<Tabs.Navigator
 			initialRouteName="Home"
@@ -36,6 +39,19 @@ const AppStack: FunctionComponent = () => {
 				}}
 			/>
 		</Tabs.Navigator>
+	)
+}
+
+const AppStack: FunctionComponent = () => {
+	return (
+		<Stack.Navigator>
+			<Stack.Screen
+				name="Home"
+				component={HomeFavorites}
+				options={{ headerShown: false }}
+			/>
+			<Stack.Screen name="Cart" component={CartScreen} />
+		</Stack.Navigator>
 	)
 }
 
