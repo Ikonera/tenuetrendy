@@ -1,8 +1,9 @@
 import { type FunctionComponent } from "react"
-import { Container, Text, IconButton, Image, Flex, Divider } from "native-base"
+import { Container, Text, IconButton, Image, Flex } from "native-base"
 import { IClothes } from "../../../Store/reducers/clothes"
 import Ant from "react-native-vector-icons/AntDesign"
 import Mi from "react-native-vector-icons/MaterialIcons"
+import Io from "react-native-vector-icons/Ionicons"
 import { useAppDispatch, useAppSelector } from "../../../Store/Store"
 import {
 	markAsFavorite,
@@ -56,7 +57,13 @@ const ArticleItem: FunctionComponent<{ article: IClothes }> = ({ article }) => {
 								? dispatch(removeFromCart({ article: article }))
 								: dispatch(addToCart({ article: article }))
 						}}
-						icon={<Ant name="shoppingcart" color="green" />}
+						icon={
+							isCartArticle(article) ? (
+								<Io name="cart" color="green" />
+							) : (
+								<Io name="cart-outline" color="green" />
+							)
+						}
 					/>
 					<IconButton
 						onPress={() => {
