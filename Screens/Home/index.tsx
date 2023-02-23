@@ -52,6 +52,7 @@ const HomeScreen: FunctionComponent<{ navigation: any }> = ({ navigation }) => {
 	const dispatch = useAppDispatch()
 	const articles = useAppSelector((state) => state.articles.articles)
 	const [itemTypes, setItemTypes] = useState<string[]>([])
+	const [searchString, setSearchString] = useState<string>("")
 
 	const retrieveTypes = async () => {
 		const types = await getAllTypeArticles()
@@ -90,35 +91,59 @@ const HomeScreen: FunctionComponent<{ navigation: any }> = ({ navigation }) => {
 		dispatch(setAllArticles({ articles: tempArticles }))
 	}
 
+	const searchArticle = (searchValue: string) => setSearchString(searchValue)
+
 	useEffect(() => {
 		retrieveTypes()
 		fetchAllArticles()
 	}, [])
 
+	useEffect(() => {}, [searchString])
+
 	return (
 		<ScrollView w="full">
 			<Flex direction="row" mb="1" mt="1" justifyContent="space-evenly">
-				<Input placeholder="Search" w="5/6" />
+				<Input
+					placeholder="Search"
+					w="5/6"
+					onChangeText={(searchValue: string) => searchArticle(searchValue)}
+				/>
 				<IconButton
 					icon={<Ant name="shoppingcart" />}
 					onPress={() => navigation.navigate("Cart")}
 				/>
 			</Flex>
-			{itemTypes.map((type: string) => (
+			{searchString === "" &&
+				itemTypes.map((type: string) => (
+					<>
+						<Divider />
+						<Heading ml="8" mt="3">
+							{type}
+						</Heading>
+						<Flex direction="row" wrap="wrap" justifyContent="space-evenly">
+							{articles
+								.filter((article) => article.type === type)
+								.map((article: IClothes, idx: number) => (
+									<ArticleItem article={article} key={idx} />
+								))}
+						</Flex>
+					</>
+				))}
+			{searchString && (
 				<>
 					<Divider />
 					<Heading ml="8" mt="3">
-						{type}
+						Articles recherchés
 					</Heading>
 					<Flex direction="row" wrap="wrap" justifyContent="space-evenly">
 						{articles
-							.filter((article) => article.type === type)
+							.filter((article) => article.label.includes(searchString))
 							.map((article: IClothes, idx: number) => (
 								<ArticleItem article={article} key={idx} />
 							))}
 					</Flex>
 				</>
-			))}
+			)}
 		</ScrollView>
 	)
 }
