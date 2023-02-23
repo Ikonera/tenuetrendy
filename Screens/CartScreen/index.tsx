@@ -19,19 +19,23 @@ import { getNewPrice } from "../../functions/codePromo"
 const CartScreen: FunctionComponent = () => {
 	const dispatch = useAppDispatch()
 	const articles = useAppSelector((state) => state.cart.articles)
+	const [initialCartPrice, setInitialCartPrice] = useState<number>(0)
 	const [totalCartPrice, setTotalCartPrice] = useState<number>(0)
 	const [openModal, setOpenModal] = useState<boolean>(false)
 	const toggleModal = () => setOpenModal(!openModal)
 
 	const handleCodeChange = async (code: string) => {
-		const newPrice = await getNewPrice(totalCartPrice, code)
-		setTotalCartPrice(newPrice)
+		if (code !== "") {
+			const newPrice = await getNewPrice(totalCartPrice, code)
+			setTotalCartPrice(newPrice)
+		} else setTotalCartPrice(initialCartPrice)
 	}
 
 	useEffect(() => {
-		let price = articles.map((article) => article.prix)
+		let initialCartPrice = articles.map((article) => article.prix)
 		if (articles.length > 0) {
-			let total = price.reduce((acc, p) => acc + p)
+			let total = initialCartPrice.reduce((acc, p) => Number(acc) + Number(p), 0)
+			setInitialCartPrice(total)
 			setTotalCartPrice(total)
 		}
 	}, [articles.length])
@@ -60,6 +64,7 @@ const CartScreen: FunctionComponent = () => {
 					/>
 					<Button
 						w="4/6"
+						mb="10"
 						onPress={() => {
 							dispatch(removeArticlesFromCart())
 							setOpenModal(true)
