@@ -1,10 +1,9 @@
-import { type FunctionComponent } from "react"
+import { useState, type FunctionComponent } from "react"
 import { View } from "react-native"
-import { Text, Button, Input, Icon } from "native-base"
+import { Text, Button, Input } from "native-base"
 import { useForm, Controller } from "react-hook-form"
-import { fireDB, auth } from "../../firebase"
-import { getAuth, User } from "firebase/auth"
-import AsyncStorage from "@react-native-async-storage/async-storage"
+import { auth } from "../../firebase"
+import { User } from "firebase/auth"
 import { useAppDispatch } from "../../Store/Store"
 import { authenticate } from "../../Store/reducers/auth"
 
@@ -20,6 +19,7 @@ const FormLogin: FunctionComponent = () => {
 		formState: { errors },
 	} = useForm<SignupInputs>({ mode: "onChange" })
 	const dispatch = useAppDispatch()
+	const [authErrorMessage, setAuthErrorMessage] = useState<string>("")
 
 	const onSubmit = (data: SignupInputs) => {
 		auth
@@ -28,6 +28,7 @@ const FormLogin: FunctionComponent = () => {
 				console.log("user signed in : ", userCredential)
 				dispatch(authenticate({ user: userCredential.user as User }))
 			})
+			.catch((e) => setAuthErrorMessage(e.message as string))
 	}
 
 	return (
@@ -116,6 +117,11 @@ const FormLogin: FunctionComponent = () => {
 					</Text>
 				)}
 			</View>
+			{authErrorMessage && (
+				<Text style={{ color: "red" }} mb="3">
+					{authErrorMessage}
+				</Text>
+			)}
 			<Button
 				onPress={handleSubmit(onSubmit)}
 				style={{

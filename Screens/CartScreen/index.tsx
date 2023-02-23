@@ -34,7 +34,10 @@ const CartScreen: FunctionComponent = () => {
 	useEffect(() => {
 		let initialCartPrice = articles.map((article) => article.prix)
 		if (articles.length > 0) {
-			let total = initialCartPrice.reduce((acc, p) => Number(acc) + Number(p), 0)
+			let total = initialCartPrice.reduce(
+				(acc, p) => Number(acc) + Number(p),
+				0
+			)
 			setInitialCartPrice(total)
 			setTotalCartPrice(total)
 		}
