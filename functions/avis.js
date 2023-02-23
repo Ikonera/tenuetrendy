@@ -1,27 +1,20 @@
 import { fireDB } from "../firebase"
 
-const getAvisByArticleId = async (articleID) => {
-	return fireDB
-		.collection("favori")
-		.where("IDArticle", "==", articleID)
+const getNotesByArticleId = async (articleId) => {
+	const snapshot = await fireDB
+		.collection("avis")
+		.where("IDArticle", "==", articleId)
 		.get()
-		.then((querySnapshot) => {
-			if (!querySnapshot.empty) {
-				console.log(querySnapshot)
-				return querySnapshot.docs
-			} else {
-				return 0
-			}
-		})
-}
+	let totalNotes = 0
+	let noteCount = 0
 
-const addAvis = async (articleID, userID, commentaire, note) => {
-	const reviewRef = db.collection("Avis")
-	await reviewRef.add({
-		articleID: articleID,
-		userID: userID,
-		commentaire: commentaire,
-		note: note,
+	snapshot.forEach((doc) => {
+		const note = doc.data().note
+		totalNotes += note
+		noteCount++
 	})
+
+	const averageNote = totalNotes / noteCount
+	return averageNote
 }
-export { getAvisByArticleId, addAvis }
+export { getNotesByArticleId }
