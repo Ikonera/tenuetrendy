@@ -1,6 +1,5 @@
 import { useEffect, useState, type FunctionComponent } from "react"
 import {
-	Container,
 	Input,
 	Heading,
 	Flex,
@@ -16,6 +15,7 @@ import { ArticleItem } from "../../components/Article"
 import { getAllTypeArticles } from "../../functions/getAllTypeArticles"
 
 export class Clothes {
+	id: string
 	couleur: string
 	image: string
 	label: string
@@ -26,6 +26,7 @@ export class Clothes {
 	type: string
 
 	constructor(
+		id: string,
 		couleur: string,
 		image: string,
 		label: string,
@@ -35,6 +36,7 @@ export class Clothes {
 		taille: string,
 		type: string
 	) {
+		this.id = id
 		this.couleur = couleur
 		this.image = image
 		this.label = label
@@ -60,6 +62,7 @@ const HomeScreen: FunctionComponent<{ navigation: any }> = ({ navigation }) => {
 		const articlesResults = await fireDB.collection("articles").get()
 		let tempArticles: IClothes[] = []
 		articlesResults.forEach((doc) => {
+			const { id } = doc
 			const {
 				couleur,
 				image,
@@ -72,6 +75,7 @@ const HomeScreen: FunctionComponent<{ navigation: any }> = ({ navigation }) => {
 			} = doc.data()
 			tempArticles.push(
 				new Clothes(
+					id,
 					couleur,
 					image,
 					label,

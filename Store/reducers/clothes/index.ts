@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 export interface IClothes {
+	id: string
 	couleur: string
 	image: string
 	label: string
